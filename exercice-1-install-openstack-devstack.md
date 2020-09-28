@@ -25,7 +25,7 @@ Ce première exercice va nous permettre d'installer Devstack qui est un moyen ra
 * Se connecter à la VM en SSH
 * Cloner le dépôt git suivant 
 ```
-git clone https://opendev.org/openstack/devstack.git .
+git clone https://opendev.org/openstack/devstack.git 
 ```
 * Créer un fichier local.conf (utilisé pendant l'installation avec le contenu suivant (que vous pouvez modifier pour changer les IP ou mots de passe)
 ```
@@ -41,6 +41,7 @@ SERVICE_PASSWORD=iheartksl
 ```
 * Lancer le script d'installation :
 ```
+cd devstack
 ./stack.sh
 ```
 * Celui-ci prend 15 à 20 minutes à s'éxecuter, laisser le tourner
