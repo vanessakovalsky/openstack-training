@@ -27,9 +27,14 @@ Ce première exercice va nous permettre d'installer Devstack qui est un moyen ra
 ```
 git clone https://opendev.org/openstack/devstack.git 
 ```
+* Récupérer et noter l'adresse IP de l'hôte :
+```
+ip addr show
+```
 * Créer un fichier local.conf (utilisé pendant l'installation avec le contenu suivant (que vous pouvez modifier pour changer les IP ou mots de passe)
 ```
 [[local|localrc]]
+HOST_IP=0.0.0.0 #a remplacer avec votre propre adresse IP
 FLOATING_RANGE=192.168.1.224/27
 FIXED_RANGE=10.11.12.0/24
 FIXED_NETWORK_SIZE=256
