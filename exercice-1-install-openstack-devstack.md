@@ -4,9 +4,7 @@ Ce première exercice va nous permettre d'installer Devstack qui est un moyen ra
 
 ## Pré-requis
 
-* Il est nécessaire d'avoir un hyperviseur de type 1 ou de type 2 d'installé et de fonctionnel sur son poste.
-* Par exemple :
-** VirtualBox : https://www.oracle.com/fr/virtualization/virtualbox/
+* Installer s'il n'est pas déjà installé sur votre poste l'outil VirtualBox : https://www.oracle.com/fr/virtualization/virtualbox/
 * Il est aussi indispensable d'avoir une connexion internet correcte, car le téléchargement des images nécessaires peut prendre du temps 
 * Niveau matériel, voici les recommandations d'OpenStack :
 **  Au moins 8GB de RAM
@@ -18,39 +16,13 @@ Ce première exercice va nous permettre d'installer Devstack qui est un moyen ra
 ** DD : 20 Go (dynamiquement alloué et de type dynamique)
 ** Os Linux Ubutnu
 * Dans la configuration de la machine, aller dans Réseau, puis sur interface1, choisir : Accès par pont (obligatoire pour accéder à OpenStack depuis l'hôte)
-* Télécharger la dernière version stable d'Ubuntu recommandé par Devstack : http://cdimage.ubuntu.com/releases/18.04/release/ 
+* Télécharger la dernière version stable d'Ubuntu (LTS 22.04, Jammy) recommandé par Devstack : https://www.ubuntu-fr.org/download/  
 * Lancer la machine en insérant le ISO téléchargé puis faire l'installation 
 
 ## Installation de DevStack
 
 * Se connecter à la VM en SSH
-* Cloner le dépôt git suivant 
-```
-git clone https://opendev.org/openstack/devstack.git 
-```
-* Récupérer et noter l'adresse IP de l'hôte :
-```
-ip addr show
-```
-* Créer un fichier local.conf (utilisé pendant l'installation avec le contenu suivant (que vous pouvez modifier pour changer les IP ou mots de passe)
-```
-[[local|localrc]]
-HOST_IP=0.0.0.0 #a remplacer avec votre propre adresse IP
-FLOATING_RANGE=192.168.1.224/27
-FIXED_RANGE=10.11.12.0/24
-FIXED_NETWORK_SIZE=256
-FLAT_INTERFACE=eth0
-ADMIN_PASSWORD=supersecret
-DATABASE_PASSWORD=iheartdatabases
-RABBIT_PASSWORD=flopsymopsy
-SERVICE_PASSWORD=iheartksl
-```
-* Lancer le script d'installation :
-```
-cd devstack
-./stack.sh
-```
-* Celui-ci prend 15 à 20 minutes à s'éxecuter, laisser le tourner
+* Suivre les instructions d'installation sur le site officiel : https://docs.openstack.org/devstack/latest/ 
 
 ## Vérification de l'installation 
 * Dans la VM, taper la commande :
