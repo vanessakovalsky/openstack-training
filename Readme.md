@@ -2,7 +2,7 @@
 
 Ce dépôt contient les explications ou lien vers les exercices liées à la formation OpenStack
 
-* [Installation de l'environnement](../exercice-1-install-openstack-devstack.md)
+* [Installation de l'environnement](https://github.com/vanessakovalsky/openstack-training/blob/master/exercice-1-install-openstack-devstack.md)
 * [Création d'un réseau](https://docs.hpc.cam.ac.uk/cloud-training/03-lab01-networking/index.html#1)
 * [Création d'instance](https://docs.hpc.cam.ac.uk/cloud-training/04-lab02-first-instance/index.html#1)
 * [Déployer un service public](https://docs.hpc.cam.ac.uk/cloud-training/05-lab03-public-service/index.html#1)
