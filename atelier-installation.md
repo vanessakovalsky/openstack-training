@@ -187,6 +187,17 @@ localhost                  : ok=425  changed=280  unreachable=0    failed=0    s
    fgrep keystone_admin_password /etc/kolla/passwords.yml
 ```
 
+#### Etape 6 : installer et configurer le CLI
+
+```bash
+pip install python-openstackclient -c https://releases.openstack.org/constraints/upper/master
+kolla-ansible post-deploy -i ./all-in-one
+source /etc/kolla/admin-openrc.sh
+# Pour vérifier que tout fonctionne
+openstack compute service list
+```
+
+
 #### Pour Ubuntu 22.04 : DevStack (25 min) 
 
 /!\ Ne fonctionne pas sur Ubuntu 24.04
