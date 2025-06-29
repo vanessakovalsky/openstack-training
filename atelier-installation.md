@@ -193,8 +193,10 @@ localhost                  : ok=425  changed=280  unreachable=0    failed=0    s
 pip install python-openstackclient -c https://releases.openstack.org/constraints/upper/master
 kolla-ansible post-deploy -i ./all-in-one
 source /etc/kolla/admin-openrc.sh
+# Execution d'un script qui crée une configuration basique pour notre environnement (flavor, images, réseaux...)
+./venv/share/kolla-ansible/init-runonce
 # Pour vérifier que tout fonctionne
-openstack compute service list
+openstack flavor list
 ```
 
 
