@@ -256,7 +256,7 @@ EOF
 #### Points de Vérification
 - [ ] Horizon accessible
 - [ ] Services actifs (nova, neutron, keystone)
-- [ ] Projet "demo" créé
+- [ ] Projet "admin" créé
 - [ ] Réseau par défaut configuré
 
 ### 📝 Questions de Synthèse
