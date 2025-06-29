@@ -1,10 +1,12 @@
-### 🎯 Objectifs du TP
+# Installation OpenStack
+
+## 🎯 Objectifs du TP
 - Comparer les méthodes d'installation
 - Installer OpenStack avec DevStack
 - Explorer l'interface Horizon
 
-### 📋 Prérequis Techniques
-- VM Ubuntu 20.04 LTS (4 CPU, 8GB RAM, 80GB disk)
+## 📋 Prérequis Techniques
+- VM Ubuntu 24.04 LTS (4 CPU, 8GB RAM, 80GB disk)
 - Accès Internet
 - Accès root/sudo
 
