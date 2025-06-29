@@ -149,18 +149,42 @@ kolla-ansible install-deps
 kolla-genpwd
 ```
 
-* Ajouter en haut du fichier /openstack/kaos/all-in-one la ligne suivante
+* Récupérer les fichiers de configurations
 ```
-localhost ansible_python_interpreter=/openstack/kaos/venv/bin/python
+rm allinone
+wget https://raw.githubusercontent.com/mmartial/geekierblog-artifacts/refs/heads/main/20250424-u24_openstack/all-in-one
+
+rm /etc/kolla/globals.yml
+wget https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/heads/master/globals.yml
+mv globals.yml /etc/kolla/globals.yml
 ```
 
 
 ##### Déploiement 
 
 ```bash
+# Bootstrap the host:
+kolla-ansible bootstrap-servers -i ./all-in-one
+# Do pre-deployment checks for the host:
+kolla-ansible prechecks -i ./all-in-one
+# Perform the OpenStack deployment:
+kolla-ansible deploy -i ./all-in-one
 
 ```
 
+* Si tout s'est bien passé vous obtenez un résultat de type:
+
+```bash
+PLAY RECAP ****...
+localhost                  : ok=425  changed=280  unreachable=0    failed=0    skipped=249  rescued=0    ignored=1
+```
+
+* Votre Dashboard est accessible sur http://localhost
+* Pour retrouver le mot de passe utilisez la commande :
+```bash
+
+   fgrep keystone_admin_password /etc/kolla/passwords.yml
+```
 
 #### Pour Ubuntu 22.04 : DevStack (25 min) 
 
