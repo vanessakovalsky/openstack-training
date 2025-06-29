@@ -1,9 +1,11 @@
-### 🎯 Objectifs du TP
+# Création de VMs
+
+## 🎯 Objectifs du TP
 - Créer et configurer des machines virtuelles
 - Gérer les réseaux et la sécurité
 - Utiliser les interfaces CLI et Web
 
-### 📋 Prérequis
+## 📋 Prérequis
 - Installation OpenStack fonctionnelle (Module 1)
 - Accès CLI et Dashboard
 - Images cloud disponibles
@@ -14,7 +16,7 @@
 ![OpenStack CLI Example](https://docs.openstack.org/python-openstackclient/_images/openstack-cli-screenshot.png)
 *Exemple d'utilisation du CLI OpenStack*
 
-### 🛠️ Atelier 1 : Préparation de l'Environnement (10 min)
+## 🛠️ Atelier 1 : Préparation de l'Environnement (10 min)
 
 #### Vérification des Services
 ```bash
@@ -48,7 +50,7 @@ openstack keypair create \
 openstack keypair list
 ```
 
-### 🌐 Atelier 2 : Configuration Réseau (10 min)
+## 🌐 Atelier 2 : Configuration Réseau (10 min)
 
 #### Création d'un Réseau Privé
 ```bash
@@ -67,7 +69,7 @@ openstack subnet create \
   private-subnet
 ```
 
-#### Configuration du Routeur
+### Configuration du Routeur
 ```bash
 # Création du routeur
 openstack router create demo-router
@@ -86,7 +88,7 @@ openstack router add subnet \
 openstack router show demo-router
 ```
 
-#### Configuration Security Group
+### Configuration Security Group
 ```bash
 # Création d'un security group
 openstack security group create \
@@ -114,7 +116,7 @@ openstack security group rule create \
   web-sg
 ```
 
-### 🚀 Atelier 3 : Création d'Instances (10 min)
+## 🚀 Atelier 3 : Création d'Instances (10 min)
 
 #### Instance Web Server
 ```bash
@@ -141,7 +143,7 @@ runcmd:
 EOF
 ```
 
-#### Instance Base de Données
+### Instance Base de Données
 ```bash
 # Création de l'instance DB
 openstack server create \
@@ -153,7 +155,7 @@ openstack server create \
   db-server-01
 ```
 
-#### Vérification et Monitoring
+### Vérification et Monitoring
 ```bash
 # État des instances
 openstack server list
@@ -170,9 +172,9 @@ openstack console url show \
   web-server-01
 ```
 
-### 🌍 Atelier 4 : Gestion des IPs Flottantes (5 min)
+## 🌍 Atelier 4 : Gestion des IPs Flottantes (5 min)
 
-#### Allocation et Association
+### Allocation et Association
 ```bash
 # Création d'une IP flottante
 openstack floating ip create public
@@ -186,7 +188,7 @@ ping -c 3 $FLOATING_IP
 ssh -i ~/.ssh/openstack_key ubuntu@$FLOATING_IP
 ```
 
-#### Test de Service
+### Test de Service
 ```bash
 # Test du serveur web
 curl http://$FLOATING_IP
@@ -197,7 +199,7 @@ ssh -i ~/.ssh/openstack_key \
   ubuntu@$FLOATING_IP
 ```
 
-### 🔧 Exercices Avancés
+## 🔧 Exercices Avancés (pour aller plus loin si vous avez terminés les premiers exercices et en attendant le reste du groupe)
 
 #### Exercice 1 : Snapshot et Restauration
 ```bash
