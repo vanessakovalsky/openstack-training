@@ -10,12 +10,6 @@
 - Accès CLI et Dashboard
 - Images cloud disponibles
 
-![OpenStack Horizon Dashboard](https://docs.openstack.org/horizon/_images/horizon-screenshot.png)
-*Interface Dashboard Horizon*
-
-![OpenStack CLI Example](https://docs.openstack.org/python-openstackclient/_images/openstack-cli-screenshot.png)
-*Exemple d'utilisation du CLI OpenStack*
-
 ## 🛠️ Atelier 1 : Préparation de l'Environnement (10 min)
 
 #### Vérification des Services
