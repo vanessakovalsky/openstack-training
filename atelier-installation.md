@@ -159,6 +159,7 @@ wget https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/h
 mv globals.yml /etc/kolla/globals.yml
 ```
 
+* Modifier la ligne kolla_internal_vip_address du fichier globals.yml pour renseigner l'adresse ip de votre interface eth0 (commande : ip a pour obtenir les adresses ip de votre machine)
 
 ##### Déploiement 
 
