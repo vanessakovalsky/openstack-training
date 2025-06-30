@@ -151,7 +151,7 @@ kolla-genpwd
 
 * Récupérer les fichiers de configurations
 ```
-rm allinone
+rm all-in-one
 wget https://raw.githubusercontent.com/mmartial/geekierblog-artifacts/refs/heads/main/20250424-u24_openstack/all-in-one
 
 rm /etc/kolla/globals.yml
