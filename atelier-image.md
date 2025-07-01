@@ -1,3 +1,5 @@
+# Gérer les images
+
 ### 🎯 Objectifs
 - Configurer Glance pour la gestion des images
 - Créer et personnaliser des images
