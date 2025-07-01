@@ -112,18 +112,15 @@ openstack security group rule create \
 
 ## 🚀 Atelier 3 : Création d'Instances (10 min)
 
+### Ajout d'une Image
+
+* Télécharger l'image iso d'ubuntu desktop sur cette page : https://www.ubuntu-fr.org/download/ 
+* Dans l'UI de Openstack, allez dans Images puis cliquer sur `Créer une image`
+* Nomme l'image ubuntu-24.04 et valider avec `Créer une image`
+* Votre image est prête à être utilisé pour la création d'une instance
+
 #### Instance Web Server
 ```bash
-# Création de l'instance web
-openstack server create \
-  --flavor m1.small \
-  --image cirros \
-  --key-name demo-key \
-  --security-group web-sg \
-  --network private-network \
-  --user-data cloud-init.txt \
-  web-server-01
-
 # Script cloud-init (cloud-init.txt)
 cat > cloud-init.txt << EOF
 #cloud-config
@@ -135,14 +132,21 @@ runcmd:
   - systemctl enable nginx
   - echo "<h1>OpenStack Web Server</h1>" > /var/www/html/index.html
 EOF
+
+# Création de l'instance web
+openstack server create \
+  --flavor m1.small \
+  --image ubuntu-24.04 \
+  --key-name demo-key \
+  --security-group web-sg \
+  --network private-network \
+  --user-data cloud-init.txt \
+  web-server-01
+
+
 ```
 
-### Ajout d'une Image
 
-* Télécharger l'image iso d'ubuntu desktop sur cette page : https://www.ubuntu-fr.org/download/ 
-* Dans l'UI de Openstack, allez dans Images puis cliquer sur `Créer une image`
-* Nomme l'image ubuntu-24.04 et valider avec `Créer une image`
-* Votre image est prête à être utilisé pour la création d'une instance
 
 ### Instance Base de Données
 ```bash
