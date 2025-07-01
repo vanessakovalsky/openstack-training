@@ -66,20 +66,20 @@ openstack subnet create \
 ### Configuration du Routeur
 ```bash
 # Création du routeur
-openstack router create demo-router
+openstack router create demo-router2
 
 # Connexion au réseau externe
 openstack router set \
   --external-gateway public \
-  demo-router
+  demo-router2
 
 # Ajout du sous-réseau privé
 openstack router add subnet \
-  demo-router \
+  demo-router2 \
   private-subnet
 
 # Vérification
-openstack router show demo-router
+openstack router show demo-router2
 ```
 
 ### Configuration Security Group
