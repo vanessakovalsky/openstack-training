@@ -114,7 +114,7 @@ openstack security group rule create \
 
 ### Ajout d'une Image
 
-* Télécharger l'image iso d'ubuntu desktop sur cette page : https://www.ubuntu-fr.org/download/ 
+* Télécharger l'image  d'ubuntu  sur cette page : https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 * Dans l'UI de Openstack, allez dans Images puis cliquer sur `Créer une image`
 * Nomme l'image ubuntu-24.04 et valider avec `Créer une image`
 * Votre image est prête à être utilisé pour la création d'une instance
