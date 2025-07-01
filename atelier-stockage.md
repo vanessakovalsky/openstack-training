@@ -6,7 +6,7 @@ Configurer et utiliser Cinder pour la gestion du stockage bloc
 ### 📋 Prérequis
 - Environnement OpenStack fonctionnel
 - Accès administrateur
-- Espace disque disponible pour LVM
+- Espace disque disponible pour NFS
 
 ### 🔧 TP 3.1 : Configuration de base de Cinder (20 minutes)
 
