@@ -137,12 +137,19 @@ runcmd:
 EOF
 ```
 
+### Ajout d'une Image
+
+* Télécharger l'image iso d'ubuntu desktop sur cette page : https://www.ubuntu-fr.org/download/ 
+* Dans l'UI de Openstack, allez dans Images puis cliquer sur `Créer une image`
+* Nomme l'image ubuntu-24.04 et valider avec `Créer une image`
+* Votre image est prête à être utilisé pour la création d'une instance
+
 ### Instance Base de Données
 ```bash
 # Création de l'instance DB
 openstack server create \
   --flavor m1.small \
-  --image ubuntu-20.04 \
+  --image ubuntu-24.04 \
   --key-name demo-key \
   --security-group default \
   --network private-network \
