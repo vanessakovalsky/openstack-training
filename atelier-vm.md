@@ -178,7 +178,7 @@ openstack console url show \
 ### Allocation et Association
 ```bash
 # Création d'une IP flottante
-openstack floating ip create public
+openstack floating ip create public1
 
 # Association à l'instance web
 FLOATING_IP=$(openstack floating ip list -c "Floating IP Address" -f value | head -1)
