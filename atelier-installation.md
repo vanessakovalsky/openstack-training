@@ -67,6 +67,14 @@ openstack keypair create \
   demo-key
 ```
 
+## Debug
+
+### Erreur host name not found
+
+* Sur la machine concerné, supprimé le fichier /etc/resolve.conf
+* Recreer le avec seulement le contenu `nameserver 8.8.8.8`
+* essayer de ping google.com
+
 ### Pour Ubuntu 24.04 : 
 
 
