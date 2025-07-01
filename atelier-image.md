@@ -42,7 +42,6 @@ qemu-img info focal-server-cloudimg-amd64.img
 ```bash
 # Création de l'image dans Glance
 openstack image create \
-    --container-format bare \
     --disk-format qcow2 \
     --min-disk 1 \
     --min-ram 512 \
