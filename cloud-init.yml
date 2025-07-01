@@ -21,6 +21,7 @@ write_files:
         echo DATABASE_PASSWORD=password >> local.conf
         echo RABBIT_PASSWORD=password >> local.conf
         echo SERVICE_PASSWORD=password >> local.conf
+        echo PUBLIC_INTERFACE=ens3
         ./stack.sh
     path: /home/stack/start.sh
     permissions: 0755
