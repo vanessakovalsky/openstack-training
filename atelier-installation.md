@@ -53,7 +53,7 @@ multipass shell [nommachine]
 * Génération d'une clé SSH
 
 ```
-ssh-keygen 
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/openstack_key -N "" 
 ```
 
 ### Pour Ubuntu 24.04 : 
