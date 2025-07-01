@@ -1,3 +1,5 @@
+# Gérer le stockage
+
 ### 🎯 Objectif
 Configurer et utiliser Cinder pour la gestion du stockage bloc
 
@@ -11,6 +13,10 @@ Configurer et utiliser Cinder pour la gestion du stockage bloc
 #### Étape 1 : Préparation du stockage LVM
 
 ```bash
+# Installation des outils nécessaires
+
+sudo apt install lvm2
+
 # Création d'un volume group pour Cinder
 sudo pvcreate /dev/sdb
 sudo vgcreate cinder-volumes /dev/sdb
