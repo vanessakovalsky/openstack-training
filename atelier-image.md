@@ -11,9 +11,9 @@
 - Accès administrateur
 - Images de test disponibles
 
-### 🔧 TP 4.1 : Configuration et test de Glance (15 minutes)
+### 🔧 TP  : test de Glance (15 minutes)
 
-#### Étape 1 : Vérification de l'installation
+#### Vérification de l'installation
 
 ```bash
 # Vérification du service Glance
@@ -24,30 +24,7 @@ openstack endpoint list | grep glance
 openstack image list
 ```
 
-#### Étape 2 : Configuration des backends
-
-```bash
-# Édition de la configuration
-sudo nano /etc/glance/glance-api.conf
-
-# Ajout du backend Swift (si disponible)
-[glance_store]
-stores = file,swift
-default_store = file
-filesystem_store_datadir = /var/lib/glance/images/
-```
-
-#### Étape 3 : Test de fonctionnement
-
-```bash
-# Redémarrage du service
-sudo systemctl restart glance-api
-
-# Vérification des logs
-sudo tail -f /var/log/glance/api.log
-```
-
-### 🔧 TP 4.2 : Création et gestion d'images (20 minutes)
+### 🔧  : Création et gestion d'images 
 
 #### Étape 1 : Téléchargement d'une image de test
 
