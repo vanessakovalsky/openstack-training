@@ -70,7 +70,7 @@ openstack router create demo-router2
 
 # Connexion au réseau externe
 openstack router set \
-  --external-gateway public \
+  --external-gateway public1 \
   demo-router2
 
 # Ajout du sous-réseau privé
