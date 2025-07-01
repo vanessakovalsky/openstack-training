@@ -61,7 +61,10 @@ openstack flavor list
 * Génération d'une clé SSH
 
 ```
-ssh-keygen -t rsa -b 2048 -f ~/.ssh/openstack_key -N "" 
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/openstack_key -N ""
+openstack keypair create \
+  --public-key ~/.ssh/openstack_key.pub \
+  demo-key
 ```
 
 ### Pour Ubuntu 24.04 : 
