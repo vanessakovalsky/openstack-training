@@ -39,16 +39,24 @@ multipass launch --cpu 4 --disk 40G --memory 8G --cloud-init https://raw.githubu
 multipass list
 ```
 * La suite se fait dans la machine crée par multipass
-* Pour se connecter utiliser la commande
+* Pour se connecter utiliser la commande pour arriver dans la machine
 
 ```
 multipass shell [nommachine]
 ```
- 
+* Utilisation de l'utilisateur devstack
+```
+sudo passwd stack
+# définir un mot de passe
+su stack
+```
 * Configuration Openstack cli
 
 ```
-
+pip install python-openstackclient
+source /devstack/openrc
+# pour vérifier afficher la liste des flavos
+openstack flavor list
 ```
 * Génération d'une clé SSH
 
