@@ -146,7 +146,7 @@ openstack server create \
 
 ```
 
-
+* Accèder dans un navigateur à l'IP de votre instance et vous devriez avoir la page de nginx qui s'affiche
 
 ### Instance Base de Données
 ```bash
