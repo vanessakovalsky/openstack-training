@@ -34,7 +34,7 @@ sudo snap install multipass
 multipass launch --cpu 4 --disk 40G --memory 8G --cloud-init https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/heads/master/cloud-init.yml jammy
 
 ```
-* Récupération de l'adresse IP de la machine (pour accéder à horizon)
+* Récupération du nom de la machine et de l'adresse IP de la machine (pour accéder à horizon)
 ```
 multipass list
 ```
@@ -42,7 +42,9 @@ multipass list
 * Pour se connecter utiliser la commande
 
 ```
-multipass exec 
+multipass shell [nommachine]
+```
+ 
 * Configuration Openstack cli
 
 ```
