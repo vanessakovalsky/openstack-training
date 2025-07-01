@@ -24,6 +24,36 @@ Remplir le tableau comparatif suivant en équipe :
 
 ### 🚀 Atelier 2 : Installation Openstack
 
+### Sur Ubuntu avec multipass:
+
+* Lancement de la VM et déploiement de devstack automatisé
+
+```bash
+
+sudo snap install multipass
+multipass launch --cpu 4 --disk 40G --memory 8G --cloud-init https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/heads/master/cloud-init.yml jammy
+
+```
+* Récupération de l'adresse IP de la machine (pour accéder à horizon)
+```
+multipass list
+```
+* La suite se fait dans la machine crée par multipass
+* Pour se connecter utiliser la commande
+
+```
+multipass exec 
+* Configuration Openstack cli
+
+```
+
+```
+* Génération d'une clé SSH
+
+```
+ssh-keygen 
+```
+
 ### Pour Ubuntu 24.04 : 
 
 
