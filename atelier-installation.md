@@ -44,6 +44,12 @@ multipass list
 ```
 multipass shell [nommachine]
 ```
+* Résoudre Erreur host name not found
+
+* Supprimé le fichier /etc/resolve.conf
+* Recreer le avec seulement le contenu `nameserver 8.8.8.8`
+* essayer de ping google.com
+
 * Utilisation de l'utilisateur devstack
 ```
 sudo passwd stack
@@ -69,11 +75,7 @@ openstack keypair create \
 
 ## Debug
 
-### Erreur host name not found
 
-* Sur la machine concerné, supprimé le fichier /etc/resolve.conf
-* Recreer le avec seulement le contenu `nameserver 8.8.8.8`
-* essayer de ping google.com
 
 ### Pour Ubuntu 24.04 : 
 
