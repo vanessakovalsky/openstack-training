@@ -10,43 +10,36 @@ Configurer et utiliser Cinder pour la gestion du stockage bloc
 
 ### 🔧 TP 3.1 : Configuration de base de Cinder (20 minutes)
 
-#### Étape 1 : Préparation du stockage LVM
+#### Étape 1 : Configuration NFS
 
 ```bash
-# Installation des outils nécessaires
+# Editer le fichier /etct/export pour ajouter votre adresse IP
+sudo nano /etc/exports
 
-sudo apt install lvm2
+# Wihin this file: add the directory and the access host (ourselves, ie, our 10. IP) to the authorized list
+/openstack/nfs       10.30.0.20(rw,sync,no_subtree_check)
 
-# Création d'un volume group pour Cinder
-sudo pvcreate /dev/sdb
-sudo vgcreate cinder-volumes /dev/sdb
+# After saving, restart the nfs server
+sudo systemctl restart nfs-kernel-server
 
-# Vérification
-sudo vgdisplay cinder-volumes
+# Editer le/etc/kolla/config/nfs_shares pour ajouter votre adresse IP
+sudo nano /etc/kolla/config/nfs_shares
+
+# Add the "remote" to mount in the file and save
+10.30.0.20:/openstack/nfs
+
+# Relancer la configuration
+kolla-ansible reconfigure -i ./all-in-one
 ```
 
-#### Étape 2 : Configuration de Cinder
+#### Étape 2 : Test
 
+* Dans l'interface, essayer de créer un volume d'un GO
+* Essayer aussi avec la commande :
 ```bash
-# Édition du fichier de configuration
-sudo nano /etc/cinder/cinder.conf
-
-# Ajout de la configuration LVM
-[lvm]
-volume_driver = cinder.volume.drivers.lvm.LVMVolumeDriver
-volume_group = cinder-volumes
-iscsi_protocol = iscsi
-iscsi_helper = tgtadm
-volume_backend_name = LVM
+openstack volume create --size 1 testcli
 ```
-
-#### Étape 3 : Redémarrage des services
-
-```bash
-sudo systemctl restart cinder-volume
-sudo systemctl restart cinder-scheduler
-sudo systemctl status cinder-volume
-```
+* Vos deux volumes devrait bien être créé
 
 ### 🔧 TP 3.2 : Gestion des volumes (20 minutes)
 
@@ -54,7 +47,7 @@ sudo systemctl status cinder-volume
 
 ```bash
 # Création d'un volume de 10GB
-openstack volume create --size 10 --type lvm volume-test
+openstack volume create --size 10 volume-test
 
 # Vérification
 openstack volume list
@@ -90,10 +83,7 @@ openstack volume snapshot list
 
 ```bash
 # Création d'un type de volume
-openstack volume type create --property volume_backend_name=LVM lvm-type
-
-# Configuration des propriétés
-openstack volume type set --property fast=true lvm-type
+openstack volume type create --property fast=true fast-type
 
 # Vérification
 openstack volume type list
@@ -112,7 +102,7 @@ openstack quota set --volumes 50 --gigabytes 1000 <project-id>
 ### ✅ Résultats attendus
 
 À la fin de ce TP, vous devriez avoir :
-- ✓ Un backend LVM configuré et fonctionnel
+- ✓ Un backend NFS configuré et fonctionnel
 - ✓ Un volume créé et attaché à une instance
 - ✓ Un snapshot de volume créé
 - ✓ Des types de volumes personnalisés
