@@ -31,7 +31,7 @@ Remplir le tableau comparatif suivant en équipe :
 ```bash
 
 sudo snap install multipass
-multipass launch --cpu 4 --disk 40G --memory 8G --cloud-init https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/heads/master/cloud-init.yml jammy
+multipass launch --cpus 4 --disk 40G --memory 8G --cloud-init https://raw.githubusercontent.com/vanessakovalsky/openstack-training/refs/heads/master/cloud-init.yml jammy
 
 ```
 * Récupération du nom de la machine et de l'adresse IP de la machine (pour accéder à horizon)
