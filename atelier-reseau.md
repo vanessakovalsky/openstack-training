@@ -1,3 +1,5 @@
+# Atelier Réseau
+
 ### Objectif
 Créer une infrastructure réseau complète avec réseaux provider et self-service, puis tester la connectivité.
 
@@ -25,6 +27,7 @@ openstack subnet create --network external-network \
 openstack network list
 openstack subnet list
 ```
+-> Sur un environnement virtualisé, la création du réseau de type provider n'est pas possible. Cela nécessiterait de disposer d'un réseau dédié branché sur la VM, ce n'est pas le cas dans les environnements de formation fournis
 
 ### Atelier 2 : Création d'un réseau self-service (5 minutes)
 
@@ -42,7 +45,7 @@ openstack subnet create --network internal-network \
 openstack router create main-router
 
 # 4. Connecter le routeur aux réseaux
-openstack router set main-router --external-gateway external-network
+openstack router set main-router --external-gateway public
 openstack router add subnet main-router internal-subnet
 
 # 5. Vérifier la configuration
@@ -52,12 +55,12 @@ openstack router show main-router
 ### Atelier 3 : Test de connectivité (5 minutes)
 
 ```bash
-# 1. Créer une instance de test
+# 1. Créer une instance de test # Adapter le nom de l'image aux images disponibles dans votre environnement
 openstack server create --flavor m1.tiny --image cirros \
   --network internal-network test-vm
 
 # 2. Créer et associer une floating IP
-openstack floating ip create external-network
+openstack floating ip create public
 FLOATING_IP=$(openstack floating ip list -f value -c "Floating IP Address" | head -1)
 openstack server add floating ip test-vm $FLOATING_IP
 
