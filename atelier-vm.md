@@ -117,7 +117,7 @@ openstack security group rule create \
 # Création de l'instance web
 openstack server create \
   --flavor m1.small \
-  --image cirros-0.5.2-x86_64-disk \
+  --image cirros \
   --key-name demo-key \
   --security-group web-sg \
   --network private-network \
