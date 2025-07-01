@@ -84,8 +84,7 @@ openstack server create \
     --flavor m1.small \
     --image "Ubuntu 20.04 Cloud" \
     --key-name mykey \
-    --security-group default \
-    --network private \
+    --network private-network \
     ubuntu-custom
 
 # Attente du démarrage
