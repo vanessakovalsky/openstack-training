@@ -13,44 +13,36 @@ Vous devez créer une structure pour une entreprise fictive "TechCorp" avec plus
 
 #### Étapes à réaliser
 
-1. **Créer les domaines**
+
+1. **Créer les utilisateurs**
 ```bash
 # Configurer le compte admin
 
 source /home/stack/devstack/openrc admin admin
 
-# Créer le domaine principal
-openstack domain create --description "Domaine TechCorp" techcorp
-
-# Créer un domaine pour les partenaires
-openstack domain create --description "Domaine Partenaires" partners
-```
-
-2. **Créer les utilisateurs**
-```bash
 # Administrateur système
-openstack user create --domain techcorp --password SecurePass123 --email admin@techcorp.com admin-tc
+openstack user create --domain default --password SecurePass123 --email admin@techcorp.com admin-tc
 
 # Développeur
-openstack user create --domain techcorp --password DevPass123 --email dev@techcorp.com dev-tc
+openstack user create --domain default --password DevPass123 --email dev@techcorp.com dev-tc
 
 # Utilisateur partenaire
-openstack user create --domain partners --password PartnerPass123 --email partner@external.com partner-user
+openstack user create --domain default --password PartnerPass123 --email partner@external.com partner-user
 ```
 
-3. **Créer les projets**
+2. **Créer les projets**
 ```bash
 # Projet production
-openstack project create --domain techcorp --description "Environnement de production" production
+openstack project create --domain default --description "Environnement de production" production
 
 # Projet développement
-openstack project create --domain techcorp --description "Environnement de développement" development
+openstack project create --domain default --description "Environnement de développement" development
 
 # Projet test
-openstack project create --domain techcorp --description "Environnement de test" testing
+openstack project create --domain default --description "Environnement de test" testing
 ```
 
-4. **Créer les rôles personnalisés**
+3. **Créer les rôles personnalisés**
 ```bash
 # Rôle développeur
 openstack role create developer
@@ -140,11 +132,10 @@ openstack catalog show monitoring
 # Créer un fichier RC pour le développeur
 cat > dev-openrc.sh << EOF
 export OS_PROJECT_DOMAIN_NAME=techcorp
-export OS_USER_DOMAIN_NAME=techcorp
+export OS_USER_DOMAIN_NAME=default
 export OS_PROJECT_NAME=development
 export OS_USERNAME=dev-tc
 export OS_PASSWORD=DevPass123
-export OS_AUTH_URL=http://controller:5000/v3
 export OS_IDENTITY_API_VERSION=3
 EOF
 
