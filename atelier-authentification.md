@@ -1,3 +1,5 @@
+# Atelier Authentification
+
 ### 🎯 Objectifs pratiques
 - Créer une structure organisationnelle complète
 - Configurer l'authentification multi-domaines
@@ -13,6 +15,10 @@ Vous devez créer une structure pour une entreprise fictive "TechCorp" avec plus
 
 1. **Créer les domaines**
 ```bash
+# Configurer le compte admin
+
+source /home/stack/devstack/openrc admin admin
+
 # Créer le domaine principal
 openstack domain create --description "Domaine TechCorp" techcorp
 
