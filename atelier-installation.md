@@ -36,6 +36,10 @@ sudo /snap/bin/microstack init --auto --control --compute
 ```
 /snap/bin/microstack status
 ```
+* Pour récupérer le mot de passe admin
+```
+sudo snap get microstack config.admin-password
+```
 * Pour accéder à horizon :
   * URL : http://127.0.0.1:80/horizon
   * Admin / mot de passe affiché par la commande init.
