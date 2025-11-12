@@ -38,7 +38,7 @@ sudo snap set microstack config.admin-password=Password123
 ```
 
 * Pour accéder à horizon :
-  * URL : http://127.0.0.1:80/horizon
+  * URL : http://127.0.0.1/
   * Admin / mot de passe affiché par la commande init.
 * Un binaire d'openstack cli est installé et configuré, vous pouvez utiliser les commandes sous la forme
 ```
