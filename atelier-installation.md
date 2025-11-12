@@ -26,47 +26,13 @@ Remplir le tableau comparatif suivant en équipe :
 
 ### Sur Ubuntu, sans virtualisation (compute sur LXC)
 
-* Récupération de devstack
+* Récupération du script et lancement
 ```
-sudo useradd -s /bin/bash -d /opt/stack -m stack
-echo "stack ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/stack
-sudo apt update -y
-sudo apt install -y git python3 python3-pip python3-venv \
-    python3-dev python3-django python3-pymysql python3-sqlalchemy \
-    libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev \
-    net-tools curl
-sudo passwd stack
-sudo su - stack
-git clone https://opendev.org/openstack/devstack
-cd devstack
+curl -L -o script-config.sh https://raw.githubusercontent.com/vanessakovalsky/openstack-training/master/script-config.sh
+chmod +x script-config.sh
+./script-config.sh
 ```
-* Préparation du fichier de config :
-```
-cat <<EOF > local.conf
-[[local|localrc]]
-ADMIN_PASSWORD=password
-DATABASE_PASSWORD=password
-RABBIT_PASSWORD=password
-SERVICE_PASSWORD=password
-HOST_IP=$(hostname -I | awk '{print $1}')
-
-# Utiliser LXD au lieu de KVM
-VIRT_DRIVER=lxd
-LIBVIRT_TYPE=lxd
-
-# Activer le plugin LXD
-enable_plugin nova-lxd https://opendev.org/openstack/nova-lxd
-
-USE_UWSGI=False
-APACHE_USE_UWSGI=False
-DISABLE_UWSGI_SETUP=True
-ENABLE_HTTPD_MOD_WSGI=True
-EOF
-```
-* Lancement du script :
-```
-./stack.sh
-```
+-> le script fait la préparation nécessaire à l'installation et lance devstack.
 
 ### Sur Ubuntu avec multipass:
 
