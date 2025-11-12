@@ -19,15 +19,17 @@ sudo apt install -y git curl libapache2-mod-wsgi-py3 python3-pip net-tools snapd
 # Activer mod_wsgi
 sudo a2enmod wsgi
 sudo systemctl restart apache2 || true
+
 # ==========================
-# 3️⃣ Créer l'utilisateur stack (si nécessaire)
+# 2️⃣ Créer l'utilisateur stack (si nécessaire)
 # ==========================
 if ! id "$STACK_USER" >/dev/null 2>&1; then
     sudo adduser --disabled-password --gecos "" $STACK_USER
     sudo usermod -aG sudo $STACK_USER
 fi
+
 # ==========================
-# 2️⃣ Installer et initialiser LXD via snap (idempotent)
+# 3️⃣ Installer LXD via snap si nécessaire
 # ==========================
 if ! snap list | grep -q '^lxd'; then
     echo "Installation de LXD via snap..."
@@ -36,13 +38,12 @@ else
     echo "LXD déjà installé"
 fi
 
-# Ajouter l'utilisateur stack au groupe lxd
+# Ajouter stack au groupe lxd (effectif à la prochaine connexion)
 sudo usermod -aG lxd $STACK_USER || true
 
-# Recharger les groupes pour la session en cours
-newgrp lxd
-
-# Initialiser LXD si nécessaire
+# ==========================
+# 4️⃣ Initialiser LXD uniquement si pas déjà initialisé
+# ==========================
 if ! /snap/bin/lxc info >/dev/null 2>&1; then
     echo "Initialisation automatique de LXD..."
     sudo /snap/bin/lxd init --auto
@@ -50,17 +51,15 @@ else
     echo "LXD déjà initialisé"
 fi
 
-
-
 # ==========================
-# 4️⃣ Cloner DevStack (si nécessaire)
+# 5️⃣ Cloner DevStack si nécessaire
 # ==========================
 if [ ! -d "$STACK_HOME/devstack" ]; then
     sudo -u $STACK_USER git clone $DEVSTACK_REPO $STACK_HOME/devstack
 fi
 
 # ==========================
-# 5️⃣ Créer local.conf pour LXD + mod_wsgi
+# 6️⃣ Créer local.conf pour LXD + mod_wsgi
 # ==========================
 cat <<EOF | sudo tee $LOCAL_CONF > /dev/null
 [[local|localrc]]
@@ -84,13 +83,13 @@ EOF
 sudo chown $STACK_USER:$STACK_USER $LOCAL_CONF
 
 # ==========================
-# 6️⃣ Supprimer d’éventuels restes uWSGI
+# 7️⃣ Supprimer d’éventuels restes uWSGI
 # ==========================
 sudo apt remove -y uwsgi uwsgi-core uwsgi-plugin-python3 || true
 sudo rm -rf /etc/uwsgi /run/uwsgi /var/run/uwsgi /var/log/uwsgi || true
 
 # ==========================
-# 7️⃣ Lancer DevStack
+# 8️⃣ Lancer DevStack
 # ==========================
 cd $STACK_HOME/devstack
 sudo -u $STACK_USER ./stack.sh
