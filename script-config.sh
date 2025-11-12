@@ -29,6 +29,13 @@ if ! id "$STACK_USER" >/dev/null 2>&1; then
     sudo usermod -aG sudo $STACK_USER
 fi
 
+## Config réseau
+sudo modprobe br_netfilter
+sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+
 # ==========================
 # 3️⃣ Installer LXD via snap si nécessaire
 # ==========================
