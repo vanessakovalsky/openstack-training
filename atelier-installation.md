@@ -47,9 +47,10 @@ multipass shell devstack
 
 * Utilisation de l'utilisateur devstack
 ```
-sudo passwd stack
 # définir un mot de passe
-su stack
+sudo passwd stack
+# se connecter avec l'utilisateur stack
+su - stack
 ```
 * Installation de la stack openstack avec devstack :
 ```
