@@ -67,4 +67,5 @@ write_files:
 
 runcmd:
   - [ bash, -c, "systemctl restart systemd-resolved" ]
-  - [ bash, -c,]()
+  - [ bash, -c, "ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf" ]
+  - [ bash, -c, "su -l stack -c '/home/stack/start.sh'" ]
