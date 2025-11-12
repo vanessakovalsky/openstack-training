@@ -31,7 +31,10 @@ Remplir le tableau comparatif suivant en équipe :
 sudo useradd -s /bin/bash -d /opt/stack -m stack
 echo "stack ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/stack
 sudo apt update -y
-sudo apt install -y git python3 python3-pip net-tools
+sudo apt install -y git python3 python3-pip python3-venv \
+    python3-dev python3-django python3-pymysql python3-sqlalchemy \
+    libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev \
+    net-tools curl
 sudo passwd stack
 sudo su - stack
 git clone https://opendev.org/openstack/devstack
