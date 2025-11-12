@@ -29,17 +29,14 @@ Remplir le tableau comparatif suivant en équipe :
 * DevStack ne fonctionne pas sans virtualisation (impossible d'initialiser Neutron), du coup nous allons utiliser le paquet microstack qui permet de démarrer un openstack rapidement
 ```
 sudo snap install microstack --beta --devmode
-sudo /snap/bin/microstack init --auto --control --compute --password Password123
+sudo /snap/bin/microstack init --auto --control --compute
 ```
 -> Installation et initialisation
-* Pour vérifier :
+* Pour initialiser le mot de passe admin :
 ```
-/snap/bin/microstack status
+sudo snap set microstack config.admin-password=Password123
 ```
-* Pour récupérer le mot de passe admin
-```
-sudo snap get microstack config.admin-password
-```
+
 * Pour accéder à horizon :
   * URL : http://127.0.0.1:80/horizon
   * Admin / mot de passe affiché par la commande init.
