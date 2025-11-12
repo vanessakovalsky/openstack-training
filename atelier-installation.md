@@ -42,7 +42,7 @@ multipass list
 * Pour se connecter utiliser la commande pour arriver dans la machine
 
 ```
-multipass shell [nommachine]
+multipass shell devstack
 ```
 
 * Utilisation de l'utilisateur devstack
@@ -53,8 +53,6 @@ su stack
 ```
 * Installation de la stack openstack avec devstack :
 ```
-multipass shell devstack
-su - stack
 cd devstack
 cat <<EOF > local.conf
 [[local|localrc]]
