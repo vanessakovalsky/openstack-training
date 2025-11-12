@@ -1,71 +1,20 @@
 #cloud-config
-
 users:
   - default
   - name: stack
-    gecos: DevStack User
-    shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
     lock_passwd: false
 
 package_update: true
-package_upgrade: false
 packages:
   - git
-  - net-tools
   - curl
+  - net-tools
   - dnsutils
-
-write_files:
-  - path: /etc/systemd/resolved.conf.d/dns.conf
-    content: |
-      [Resolve]
-      DNS=1.1.1.1 8.8.8.8
-      FallbackDNS=8.8.4.4
-      DNSStubListener=no
-    permissions: '0644'
-
-  - path: /home/stack/start.sh
-    permissions: '0755'
-    content: |
-      #!/bin/bash
-      set -eux
-      export DEBIAN_FRONTEND=noninteractive
-
-      # Assurer que la résolution DNS marche
-      sudo systemctl restart systemd-resolved
-      ping -c 1 google.com || (echo "DNS still broken" && exit 1)
-
-      # Installer dépendances
-      sudo apt-get update -qq
-      sudo apt-get install -y git curl python3-pip net-tools
-
-      # Préparer dossier stack
-      sudo chown -R stack:stack /home/stack
-      cd /home/stack
-
-      # Cloner DevStack
-      if [ ! -d "devstack" ]; then
-        git clone https://opendev.org/openstack/devstack
-      fi
-      cd devstack
-
-      # Config DevStack
-      cat <<EOF > local.conf
-      [[local|localrc]]
-      ADMIN_PASSWORD=password
-      DATABASE_PASSWORD=password
-      RABBIT_PASSWORD=password
-      SERVICE_PASSWORD=password
-      HOST_IP=\$(hostname -I | awk '{print \$1}')
-      PUBLIC_INTERFACE=ens3
-      LOGFILE=/opt/stack/logs/stack.sh.log
-      EOF
-
-      # Lancer DevStack
-      ./stack.sh
 
 runcmd:
   - [ bash, -c, "systemctl restart systemd-resolved" ]
   - [ bash, -c, "ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf" ]
-  - [ bash, -c, "su -l stack -c '/home/stack/start.sh'" ]
+  - [ bash, -c, "git clone https://opendev.org/openstack/devstack /home/stack/devstack" ]
+  - [ bash, -c, "chown -R stack:stack /home/stack/devstack" ]
