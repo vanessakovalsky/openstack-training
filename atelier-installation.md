@@ -29,7 +29,7 @@ Remplir le tableau comparatif suivant en équipe :
 * DevStack ne fonctionne pas sans virtualisation (impossible d'initialiser Neutron), du coup nous allons utiliser le paquet microstack qui permet de démarrer un openstack rapidement
 ```
 sudo snap install microstack --beta --devmode
-sudo /snap/bin/microstack init --auto --control --compute
+sudo /snap/bin/microstack init --auto --control --compute --password Password123
 ```
 -> Installation et initialisation
 * Pour vérifier :
