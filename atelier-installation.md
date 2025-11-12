@@ -6,7 +6,7 @@
 - Explorer l'interface Horizon
 
 ## 📋 Prérequis Techniques
-- VM Ubuntu 24.04 LTS (4 CPU, 8GB RAM, 80GB disk)
+- VM Ubuntu 24.04 LTS (8 CPU, 16GB RAM, 80GB disk)
 - Accès Internet
 - Accès root/sudo
 
