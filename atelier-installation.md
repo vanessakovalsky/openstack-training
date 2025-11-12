@@ -24,6 +24,41 @@ Remplir le tableau comparatif suivant en équipe :
 
 ### 🚀 Atelier 2 : Installation Openstack
 
+### Sur Ubuntu, sans virtualisation (compute sur LXC)
+
+* Récupération de devstack
+```
+sudo useradd -s /bin/bash -d /opt/stack -m stack
+echo "stack ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/stack
+sudo apt update -y
+sudo apt install -y git python3 python3-pip net-tools
+sudo su - stack
+git clone https://opendev.org/openstack/devstack
+cd devstack
+```
+* Préparation du fichier de config :
+```
+cat <<EOF > local.conf
+[[local|localrc]]
+ADMIN_PASSWORD=password
+DATABASE_PASSWORD=password
+RABBIT_PASSWORD=password
+SERVICE_PASSWORD=password
+HOST_IP=$(hostname -I | awk '{print $1}')
+
+# Utiliser LXD au lieu de KVM
+VIRT_DRIVER=lxd
+LIBVIRT_TYPE=lxd
+
+# Activer le plugin LXD
+enable_plugin nova-lxd https://opendev.org/openstack/nova-lxd
+EOF
+```
+* Lancement du script :
+```
+./stack.sh
+```
+
 ### Sur Ubuntu avec multipass:
 
 * Lancement de la VM et déploiement de devstack automatisé
@@ -65,6 +100,7 @@ HOST_IP=$(hostname -I | awk '{print $1}')
 EOF
 ./stack.sh
 ```
+## Configuration post installation 
 
 * Configuration Openstack cli
 
