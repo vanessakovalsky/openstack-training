@@ -9,12 +9,13 @@ STACK_HOME="/home/$STACK_USER"
 DEVSTACK_REPO="https://opendev.org/openstack-dev/devstack"
 LOCAL_CONF="$STACK_HOME/devstack/local.conf"
 HOST_IP=$(hostname -I | awk '{print $1}')
+PUBLIC_INTERFACE=$(ip route | grep '^default' | awk '{print $5}')  # détecte automatiquement l'interface publique
 
 # ==========================
 # 1️⃣ Installer dépendances
 # ==========================
 sudo apt update -qq
-sudo apt install -y git curl libapache2-mod-wsgi-py3 python3-pip net-tools snapd
+sudo apt install -y git curl libapache2-mod-wsgi-py3 python3-pip net-tools snapd bridge-utils
 
 # Activer mod_wsgi
 sudo a2enmod wsgi
@@ -59,7 +60,7 @@ if [ ! -d "$STACK_HOME/devstack" ]; then
 fi
 
 # ==========================
-# 6️⃣ Créer local.conf pour LXD + mod_wsgi
+# 6️⃣ Créer local.conf pour LXD + LinuxBridge + mod_wsgi
 # ==========================
 cat <<EOF | sudo tee $LOCAL_CONF > /dev/null
 [[local|localrc]]
@@ -69,12 +70,17 @@ RABBIT_PASSWORD=password
 SERVICE_PASSWORD=password
 HOST_IP=$HOST_IP
 
-# LXD comme hyperviseur
+# Hyperviseur
 VIRT_DRIVER=lxd
 LIBVIRT_TYPE=lxd
 enable_plugin nova-lxd https://opendev.org/openstack/nova-lxd
 
-# Forcer mod_wsgi pour les services HTTP
+# Réseau LinuxBridge pour éviter 503
+Q_AGENT=linuxbridge
+ENABLE_TENANT_TUNNELS=False
+FLAT_INTERFACE=$PUBLIC_INTERFACE
+
+# HTTP
 USE_UWSGI=False
 APACHE_USE_UWSGI=False
 ENABLE_HTTPD_MOD_WSGI=True
