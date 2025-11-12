@@ -21,7 +21,7 @@ sudo a2enmod wsgi
 sudo systemctl restart apache2 || true
 
 # ==========================
-# 2️⃣ Créer l'utilisateur stack (si nécessaire)
+# 2️⃣ Créer l'utilisateur stack si nécessaire
 # ==========================
 if ! id "$STACK_USER" >/dev/null 2>&1; then
     sudo adduser --disabled-password --gecos "" $STACK_USER
@@ -38,11 +38,11 @@ else
     echo "LXD déjà installé"
 fi
 
-# Ajouter stack au groupe lxd (effectif à la prochaine connexion)
+# Ajouter stack au groupe lxd (prise en compte à la prochaine connexion)
 sudo usermod -aG lxd $STACK_USER || true
 
 # ==========================
-# 4️⃣ Initialiser LXD uniquement si pas déjà initialisé
+# 4️⃣ Initialiser LXD uniquement si nécessaire
 # ==========================
 if ! /snap/bin/lxc info >/dev/null 2>&1; then
     echo "Initialisation automatique de LXD..."
