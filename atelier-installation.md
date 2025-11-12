@@ -70,7 +70,8 @@ EOF
 
 ```
 pip install python-openstackclient
-source /devstack/openrc
+# depuis le dossier devstack toujours
+source openrc
 # pour vérifier afficher la liste des flavos
 openstack flavor list
 ```
