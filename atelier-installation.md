@@ -56,6 +56,11 @@ LIBVIRT_TYPE=lxd
 
 # Activer le plugin LXD
 enable_plugin nova-lxd https://opendev.org/openstack/nova-lxd
+
+USE_UWSGI=False
+APACHE_USE_UWSGI=False
+DISABLE_UWSGI_SETUP=True
+ENABLE_HTTPD_MOD_WSGI=True
 EOF
 ```
 * Lancement du script :
