@@ -24,15 +24,34 @@ Remplir le tableau comparatif suivant en équipe :
 
 ### 🚀 Atelier 2 : Installation Openstack
 
-### Sur Ubuntu, sans virtualisation (compute sur LXC)
+### Sur Ubuntu, sans virtualisation 
 
-* Récupération du script et lancement
+* DevStack ne fonctionne pas sans virtualisation (impossible d'initialiser Neutron), du coup nous allons utiliser le paquet microstack qui permet de démarrer un openstack rapidement
 ```
-curl -L -o script-config.sh https://raw.githubusercontent.com/vanessakovalsky/openstack-training/master/script-config.sh
-chmod +x script-config.sh
-./script-config.sh
+sudo snap install microstack --beta --devmode
+sudo /snap/bin/microstack init --auto --control --compute
 ```
--> le script fait la préparation nécessaire à l'installation et lance devstack.
+-> Installation et initialisation
+* Pour vérifier :
+```
+/snap/bin/microstack status
+```
+* Pour accéder à horizon :
+  * URL : http://127.0.0.1:80/horizon
+  * Admin / mot de passe affiché par la commande init.
+* Un binaire d'openstack cli est installé et configuré, vous pouvez utiliser les commandes sous la forme
+```
+sudo microstack.openstack <commande>
+```
+* Les fichiers de configs et logs sont :
+Composant	Fichier / Dossier
+Keystone	/var/snap/microstack/common/etc/keystone/
+Glance	/var/snap/microstack/common/etc/glance/
+Nova	/var/snap/microstack/common/etc/nova/
+Neutron	/var/snap/microstack/common/etc/neutron/
+Horizon (Apache)	/var/snap/microstack/common/etc/horizon/
+Logs	/var/snap/microstack/common/log/
+
 
 ### Sur Ubuntu avec multipass:
 
