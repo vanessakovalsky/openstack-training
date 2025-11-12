@@ -32,6 +32,7 @@ sudo useradd -s /bin/bash -d /opt/stack -m stack
 echo "stack ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/stack
 sudo apt update -y
 sudo apt install -y git python3 python3-pip net-tools
+sudo passwd stack
 sudo su - stack
 git clone https://opendev.org/openstack/devstack
 cd devstack
