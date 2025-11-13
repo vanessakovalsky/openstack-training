@@ -24,36 +24,6 @@ Remplir le tableau comparatif suivant en équipe :
 
 ### 🚀 Atelier 2 : Installation Openstack
 
-### Sur Ubuntu, sans virtualisation 
-
-* DevStack ne fonctionne pas sans virtualisation (impossible d'initialiser Neutron), du coup nous allons utiliser le paquet microstack qui permet de démarrer un openstack rapidement
-```
-sudo snap install microstack --beta --devmode
-sudo /snap/bin/microstack init --auto --control --compute
-```
--> Installation et initialisation
-* Pour initialiser le mot de passe admin :
-```
-sudo snap set microstack config.admin-password=Password123
-```
-
-* Pour accéder à horizon :
-  * URL : http://127.0.0.1/
-  * Admin / mot de passe affiché par la commande init.
-* Un binaire d'openstack cli est installé et configuré, vous pouvez utiliser les commandes sous la forme
-```
-sudo microstack.openstack <commande>
-```
-* Les fichiers de configs et logs sont :
-Composant	Fichier / Dossier
-Keystone	/var/snap/microstack/common/etc/keystone/
-Glance	/var/snap/microstack/common/etc/glance/
-Nova	/var/snap/microstack/common/etc/nova/
-Neutron	/var/snap/microstack/common/etc/neutron/
-Horizon (Apache)	/var/snap/microstack/common/etc/horizon/
-Logs	/var/snap/microstack/common/log/
-
-
 ### Sur Ubuntu avec multipass:
 
 * Lancement de la VM et déploiement de devstack automatisé
@@ -129,7 +99,7 @@ openstack keypair create \
 
 #### Connexion à Horizon
 1. Ouvrir http://HOST_IP/dashboard
-2. Connexion : admin / secret
+2. Connexion : admin / password
 3. Explorer les menus :
    - Compute → Instances
    - Network → Networks
