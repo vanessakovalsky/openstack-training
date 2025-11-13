@@ -576,82 +576,88 @@ Créer une infrastructure web avec :
 - 1 serveur de base de données (privé, sans Floating IP)
 
 ### Solution étape par étape
+<details>
+  
+  <summary>Afficher la solution</summary>
+  
+  ```bash
+  # 1. Créer le réseau et subnet
+  openstack network create webapp-network
+  
+  openstack subnet create \
+      --network webapp-network \
+      --subnet-range 10.0.1.0/24 \
+      --dns-nameserver 8.8.8.8 \
+      webapp-subnet
+  
+  # 2. Créer et configurer le routeur
+  openstack router create webapp-router
+  openstack router set --external-gateway public webapp-router
+  openstack router add subnet webapp-router webapp-subnet
+  
+  # 3. Créer les security groups
+  
+  # Security group web (HTTP + SSH)
+  openstack security group create webapp-web-sg
+  openstack security group rule create --protocol tcp --dst-port 22 webapp-web-sg
+  openstack security group rule create --protocol tcp --dst-port 80 webapp-web-sg
+  openstack security group rule create --protocol icmp webapp-web-sg
+  
+  # Security group database (MySQL depuis le web-sg uniquement)
+  openstack security group create webapp-db-sg
+  openstack security group rule create \
+      --protocol tcp \
+      --dst-port 3306 \
+      --remote-group webapp-web-sg \
+      webapp-db-sg
+  
+  # 4. Créer les instances
+  
+  # Serveur web
+  openstack server create \
+      --image cirros-0.6.2-x86_64-disk \
+      --flavor m1.small \
+      --network webapp-network \
+      --security-group webapp-web-sg \
+      --key-name mykey \
+      webapp-web
+  
+  # Serveur DB
+  openstack server create \
+      --image cirros-0.6.2-x86_64-disk \
+      --flavor m1.small \
+      --network webapp-network \
+      --security-group webapp-db-sg \
+      --key-name mykey \
+      webapp-db
+  
+  # Attendre que les instances soient ACTIVE
+  watch -n 2 'openstack server list'
+  
+  # 5. Assigner Floating IP au serveur web uniquement
+  openstack floating ip create public
+  FLOATING_IP=$(openstack floating ip list -f value -c "Floating IP Address" --status DOWN | head -1)
+  openstack server add floating ip webapp-web ${FLOATING_IP}
+  
+  # 6. Vérifications
+  echo "=== INFRASTRUCTURE WEB APP ==="
+  echo "Réseau: $(openstack network show webapp-network -f value -c id)"
+  echo "Routeur: $(openstack router show webapp-router -f value -c id)"
+  echo ""
+  echo "Serveur Web:"
+  openstack server show webapp-web -c name -c status -c addresses -c security_groups
+  echo ""
+  echo "Serveur DB:"
+  openstack server show webapp-db -c name -c status -c addresses -c security_groups
+  echo ""
+  echo "Floating IP Web: ${FLOATING_IP}"
+  echo ""
+  echo "Test de connexion:"
+  ping -c 3 ${FLOATING_IP}
+  ```
 
-```bash
-# 1. Créer le réseau et subnet
-openstack network create webapp-network
-
-openstack subnet create \
-    --network webapp-network \
-    --subnet-range 10.0.1.0/24 \
-    --dns-nameserver 8.8.8.8 \
-    webapp-subnet
-
-# 2. Créer et configurer le routeur
-openstack router create webapp-router
-openstack router set --external-gateway public webapp-router
-openstack router add subnet webapp-router webapp-subnet
-
-# 3. Créer les security groups
-
-# Security group web (HTTP + SSH)
-openstack security group create webapp-web-sg
-openstack security group rule create --protocol tcp --dst-port 22 webapp-web-sg
-openstack security group rule create --protocol tcp --dst-port 80 webapp-web-sg
-openstack security group rule create --protocol icmp webapp-web-sg
-
-# Security group database (MySQL depuis le web-sg uniquement)
-openstack security group create webapp-db-sg
-openstack security group rule create \
-    --protocol tcp \
-    --dst-port 3306 \
-    --remote-group webapp-web-sg \
-    webapp-db-sg
-
-# 4. Créer les instances
-
-# Serveur web
-openstack server create \
-    --image cirros-0.6.2-x86_64-disk \
-    --flavor m1.small \
-    --network webapp-network \
-    --security-group webapp-web-sg \
-    --key-name mykey \
-    webapp-web
-
-# Serveur DB
-openstack server create \
-    --image cirros-0.6.2-x86_64-disk \
-    --flavor m1.small \
-    --network webapp-network \
-    --security-group webapp-db-sg \
-    --key-name mykey \
-    webapp-db
-
-# Attendre que les instances soient ACTIVE
-watch -n 2 'openstack server list'
-
-# 5. Assigner Floating IP au serveur web uniquement
-openstack floating ip create public
-FLOATING_IP=$(openstack floating ip list -f value -c "Floating IP Address" --status DOWN | head -1)
-openstack server add floating ip webapp-web ${FLOATING_IP}
-
-# 6. Vérifications
-echo "=== INFRASTRUCTURE WEB APP ==="
-echo "Réseau: $(openstack network show webapp-network -f value -c id)"
-echo "Routeur: $(openstack router show webapp-router -f value -c id)"
-echo ""
-echo "Serveur Web:"
-openstack server show webapp-web -c name -c status -c addresses -c security_groups
-echo ""
-echo "Serveur DB:"
-openstack server show webapp-db -c name -c status -c addresses -c security_groups
-echo ""
-echo "Floating IP Web: ${FLOATING_IP}"
-echo ""
-echo "Test de connexion:"
-ping -c 3 ${FLOATING_IP}
-```
+  
+</details>
 
 **🔬 Tests avancés :**
 ```bash
