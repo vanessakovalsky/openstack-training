@@ -270,31 +270,38 @@ Créez la structure suivante :
 
 ### Solution
 
-```bash
-# 1. Domaine
-openstack domain create --description "Environnement Production" production
 
-# 2. Projets
-openstack project create --domain production --description "Application Web" webapp
-openstack project create --domain production --description "Base de données" database
+<details>
+  <summary>Afficher la solution</summary>
+  
+  ```bash
+  # 1. Domaine
+  openstack domain create --description "Environnement Production" production
+  
+  # 2. Projets
+  openstack project create --domain production --description "Application Web" webapp
+  openstack project create --domain production --description "Base de données" database
+  
+  # 3. Utilisateurs
+  openstack user create --domain production --password AlicePass alice
+  openstack user create --domain production --password BobPass bob
+  openstack user create --domain production --password CharliePass charlie
+  
+  # 4. Groupe
+  openstack group create --domain production --description "Équipe Ops" ops-team
+  openstack group add user ops-team bob
+  openstack group add user ops-team charlie
+  
+  # 5. Rôles
+  openstack role add --project webapp --user alice admin
+  openstack role add --project database --user alice admin
+  openstack role add --project webapp --group ops-team developer
+  openstack role create viewer
+  openstack role add --project database --user charlie viewer
+  ```
 
-# 3. Utilisateurs
-openstack user create --domain production --password AlicePass alice
-openstack user create --domain production --password BobPass bob
-openstack user create --domain production --password CharliePass charlie
-
-# 4. Groupe
-openstack group create --domain production --description "Équipe Ops" ops-team
-openstack group add user ops-team bob
-openstack group add user ops-team charlie
-
-# 5. Rôles
-openstack role add --project webapp --user alice admin
-openstack role add --project database --user alice admin
-openstack role add --project webapp --group ops-team developer
-openstack role create viewer
-openstack role add --project database --user charlie viewer
-```
+  
+</details>
 
 ---
 
