@@ -303,6 +303,16 @@ Créez la structure suivante :
   
 </details>
 
+## Pour se connecter à la GUI (horizon) depuis plusieurs domaines :
+Pour se connecter en multidomaine : 
+* l'utilisateur doit être créer avec un mot de passe assigné, ET il doit avoir au moins un rôle sur un projet 
+* Modifier le fichier de configuration de horizon : `/opt/stack/horizon/openstack_dashboard/local/local_settings.py` pour ajouter les deux lignes suivantes : 
+```
+OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True
+OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'Default'
+```
+Redémarrer apache :  `sudo systemctl restart apache2 `
+
 ---
 
 ## Points clés à retenir
