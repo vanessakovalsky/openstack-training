@@ -31,7 +31,7 @@ source /opt/stack/devstack/openrc admin admin
 
 # Variables de configuration
 INSTANCE_NAME="web-server-01"
-IMAGE="cirros-0.6.2-x86_64-disk"
+IMAGE="cirros-0.6.3-x86_64-disk"
 FLAVOR="m1.tiny"
 NETWORK="private"
 KEY_NAME="mykey"
