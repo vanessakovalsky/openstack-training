@@ -241,6 +241,22 @@ runcmd:
 
 ## Partie 3 : Orchestration avec Heat (12 min)
 
+### 3.0 Activer heat sur DevStack
+
+* Ajouter dans le fichier local.conf (a la fin) les lignes suivantes :
+```
+# Activer Heat
+enable_plugin heat https://opendev.org/openstack/heat
+ 
+enable_service h-eng
+enable_service h-api
+enable_service h-api-cfn
+enable_service h-api-cw
+```
+* relancer le script stack.sh pour installer et configurer heat : `./stack.sh`
+* Attendre que l'installation et la configuration de heat soit terminer
+* Une fois terminé vous pouvez tester avec la commande : `openstack stack list`
+
 ### 3.1 Template Heat basique
 
 **Fichier : `simple-stack.yaml`**
