@@ -73,7 +73,7 @@ source /opt/stack/devstack/openrc admin admin
 # Configuration
 BASE_NAME="web-server"
 COUNT=5
-IMAGE="cirros-0.6.2-x86_64-disk"
+IMAGE="cirros-0.6.3-x86_64-disk"
 FLAVOR="m1.tiny"
 NETWORK="private"
 
