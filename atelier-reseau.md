@@ -12,9 +12,7 @@ Créer une infrastructure réseau complète avec réseaux provider et self-servi
 
 ```bash
 # 1. Créer le réseau provider
-openstack network create --share --external \
-  --provider-physical-network provider \
-  --provider-network-type flat external-network
+openstack network create --share  external-network
 
 # 2. Créer le sous-réseau externe
 openstack subnet create --network external-network \
