@@ -38,8 +38,12 @@ nano local.conf
 Ajouter ces lignes :
 ```ini
 # Activer Octavia
-enable_plugin octavia https://opendev.org/openstack/octavia
-enable_service octavia o-cw o-hk o-hm o-api
+enable_service o-api=true
+enable_service o-hk=true
+enable_service o-hm=true
+enable_service o-cw=true
+OCTAVIA_MGMT_NETWORK=lb-mgmt-net
+OCTAVIA_MGMT_SUBNET=lb-mgmt-subnet
 ```
 
 Relancer DevStack :
