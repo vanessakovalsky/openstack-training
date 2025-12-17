@@ -38,6 +38,10 @@ nano local.conf
 
 Ajouter ces lignes :
 ```ini
+enable_service o-api=false
+enable_service o-hk=false
+enable_service o-hm=false
+enable_service o-cw=false
 # Activer Octavia
 enable_service o-api=true
 enable_service o-hk=true
