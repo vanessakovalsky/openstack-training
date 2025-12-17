@@ -38,10 +38,28 @@ nano local.conf
 
 Ajouter ces lignes :
 ```ini
+[[local|localrc]]
+HOST_IP=192.168.25.104
+SERVICE_HOST=192.168.25.104
+
+# OVN
+enable_service neutron
+enable_service ovn-northd
+enable_service ovn-controller
+enable_service q-ovn-metadata-agent
+
+# Octavia (désactivé pour premier stack)
 enable_service o-api=false
 enable_service o-hk=false
 enable_service o-hm=false
 enable_service o-cw=false
+
+# Floating IPs
+PUBLIC_NETWORK_NAME=public
+PUBLIC_SUBNET_NAME=public-subnet
+PUBLIC_NETWORK_GATEWAY=192.168.100.1
+
+
 # Activer Octavia
 enable_service o-api=true
 enable_service o-hk=true
