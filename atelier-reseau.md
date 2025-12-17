@@ -8,26 +8,7 @@ Créer une infrastructure réseau complète avec réseaux provider et self-servi
 - Droits administrateur
 - Client OpenStack CLI configuré
 
-### Atelier 1 : Création d'un réseau provider (5 minutes)
-
-```bash
-# 1. Créer le réseau provider
-openstack network create --share  external-network
-
-# 2. Créer le sous-réseau externe
-openstack subnet create --network external-network \
-  --allocation-pool start=192.168.100.100,end=192.168.100.200 \
-  --dns-nameserver 8.8.8.8 \
-  --gateway 192.168.100.1 \
-  --subnet-range 192.168.100.0/24 external-subnet
-
-# 3. Vérifier la création
-openstack network list
-openstack subnet list
-```
--> Sur un environnement virtualisé, la création du réseau de type provider n'est pas possible. Cela nécessiterait de disposer d'un réseau dédié branché sur la VM, ce n'est pas le cas dans les environnements de formation fournis
-
-### Atelier 2 : Création d'un réseau self-service (5 minutes)
+### Atelier 1 : Création d'un réseau self-service (5 minutes)
 
 ```bash
 # 1. Créer le réseau tenant
@@ -50,7 +31,7 @@ openstack router add subnet main-router internal-subnet
 openstack router show main-router
 ```
 
-### Atelier 3 : Test de connectivité (5 minutes)
+### Atelier 2 : Test de connectivité (5 minutes)
 
 ```bash
 # 1. Créer une instance de test # Adapter le nom de l'image aux images disponibles dans votre environnement
