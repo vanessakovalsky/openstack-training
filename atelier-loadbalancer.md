@@ -28,6 +28,7 @@ Arrêter DevStack :
 ```bash
 cd ~/devstack
 ./unstack.sh
+./clean.sh
 ```
 
 Modifier `local.conf` :
