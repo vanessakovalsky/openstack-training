@@ -171,7 +171,7 @@ openstack console log show web-server-01
 
 # URL console VNC
 openstack console url show \
-  --vnc \
+  --no-vnc \
   web-server-01
 ```
 
