@@ -17,6 +17,104 @@ Votre mission est de créer l'infrastructure complète en utilisant les composan
 #### Contexte de l'entreprise
 TechCorp organise ses ressources cloud par projet. Le nouveau projet s'appelle **"webapp-prod"** et nécessite une équipe dédiée avec des rôles bien définis.
 
+### Schéma de l'architecture cible
+
+```mermaid
+graph TB
+    subgraph Internet["🌐 Internet / Réseau Externe"]
+        EXT[Réseau Externe<br/>ext-net]
+    end
+
+    subgraph Keystone["👥 Keystone - Identité"]
+        PROJECT[Projet: webapp-prod]
+        USER1[User: dev-user<br/>Role: member]
+        USER2[User: admin-user<br/>Role: admin]
+    end
+
+    subgraph Router["🔀 Neutron - Routeur"]
+        ROUTER[Router<br/>webapp-router]
+        FIP1[IP Flottante<br/>Frontend]
+        FIP2[IP Flottante<br/>Backend]
+    end
+
+    subgraph PrivateNetwork["🔒 Réseau Privé: webapp-network"]
+        SUBNET[Sous-réseau: 10.0.1.0/24<br/>DHCP activé]
+        
+        subgraph SecurityGroups["🛡️ Groupes de Sécurité"]
+            SG_WEB[SG-Web<br/>80, 443, 22]
+            SG_APP[SG-App<br/>8080, 22]
+            SG_DB[SG-Database<br/>3306, 22]
+        end
+        
+        subgraph Instances["💻 Nova - Instances"]
+            FRONT[Instance Frontend<br/>Ubuntu 22.04<br/>2 vCPU, 4GB RAM<br/>IP: 10.0.1.10]
+            BACK[Instance Backend<br/>Ubuntu 22.04<br/>2 vCPU, 4GB RAM<br/>IP: 10.0.1.11]
+            DB[Instance Database<br/>Ubuntu 22.04<br/>4 vCPU, 8GB RAM<br/>IP: 10.0.1.12]
+        end
+    end
+
+    subgraph Glance["📦 Glance - Images"]
+        IMG1[Image: Ubuntu 22.04 LTS]
+        SNAP1[Snapshot: frontend-configured]
+    end
+
+    subgraph Cinder["💾 Cinder - Volumes"]
+        VOL1[Volume Web<br/>20 GB]
+        VOL2[Volume Database<br/>50 GB]
+    end
+
+    %% Connexions réseau
+    EXT ---|NAT| ROUTER
+    ROUTER ---|Gateway| SUBNET
+    FIP1 -.->|Associée| FRONT
+    FIP2 -.->|Associée| BACK
+    
+    SUBNET --> FRONT
+    SUBNET --> BACK
+    SUBNET --> DB
+
+    %% Sécurité
+    SG_WEB -.->|Appliqué| FRONT
+    SG_APP -.->|Appliqué| BACK
+    SG_DB -.->|Appliqué| DB
+
+    %% Images
+    IMG1 -.->|Boot| FRONT
+    IMG1 -.->|Boot| BACK
+    IMG1 -.->|Boot| DB
+    FRONT -.->|Créé depuis| SNAP1
+
+    %% Volumes
+    VOL1 ---|Attaché| FRONT
+    VOL2 ---|Attaché| DB
+
+    %% Communication entre instances
+    FRONT <-->|HTTP/HTTPS| BACK
+    BACK <-->|MySQL| DB
+
+    %% Projet
+    PROJECT -.->|Possède| PrivateNetwork
+    PROJECT -.->|Possède| Instances
+    PROJECT -.->|Possède| Cinder
+    USER1 -.->|Accès| PROJECT
+    USER2 -.->|Admin| PROJECT
+
+    %% Styles
+    classDef keystone fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    classDef neutron fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef nova fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef glance fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    classDef cinder fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef security fill:#ffebee,stroke:#b71c1c,stroke-width:2px
+    
+    class PROJECT,USER1,USER2 keystone
+    class ROUTER,FIP1,FIP2,SUBNET keystone
+    class FRONT,BACK,DB nova
+    class IMG1,SNAP1 glance
+    class VOL1,VOL2 cinder
+    class SG_WEB,SG_APP,SG_DB security
+```
+
 #### Architecture réseau requise
 - Un réseau privé isolé pour l'application
 - Un sous-réseau avec allocation DHCP
